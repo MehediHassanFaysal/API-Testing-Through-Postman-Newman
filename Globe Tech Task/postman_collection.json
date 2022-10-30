@@ -1,0 +1,866 @@
+{
+	"info": {
+		"_postman_id": "950f4d54-f15d-467b-b3bb-d24fbaac580c",
+		"name": "API Testing Of Globe Tech Task",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "22934276"
+	},
+	"item": [
+		{
+			"name": "User registration",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"validate multiple fields in response\", function(){\r",
+							"responseJson = pm.response.json(); \r",
+							"pm.expect(responseJson.user.first_name).to.eql(\"Faysal\");\r",
+							"pm.expect(responseJson.user.email).to.eql(\"faysal012@gmail.com\");\r",
+							"pm.expect(pm.response.code).to.be.oneOf([201]);\r",
+							" });\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6ODAwMFwvYXBpXC9hdXRoXC9sb2dpbiIsImlhdCI6MTY2NjUxMzk0NSwiZXhwIjoxNjY2NTE3NTQ2LCJuYmYiOjE2NjY1MTM5NDYsImp0aSI6ImVLWEo0Z0V1MXRsaW5QT2wiLCJzdWIiOjEsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.lI-MoVzeOGxB8sC7_oHtCejnQsKG3LpUu0PT3y0UPsU",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"first_name\": \"Faysal\",\r\n        \"last_name\": \"Sarder\",\r\n        \"email\": \"faysal012@gmail.com\",\r\n        \"password\": \"123456\",\r\n        \"password_confirmation\": \"123456\"\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/auth/register",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"auth",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User login ",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"Validation status code\"] = responseCode.code ==200;\r",
+							"var response=JSON.parse(responseBody);\r",
+							"tests[\"Token-type validation\"] = response.token_type==\"bearer\";\r",
+							"tests[\"Expires_in validation\"] = response.expires_in==3600;\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6ODAwMFwvYXBpXC9hdXRoXC9sb2dpbiIsImlhdCI6MTY2NzEyMTY2MiwiZXhwIjoxNjY3MTI1MjYyLCJuYmYiOjE2NjcxMjE2NjIsImp0aSI6InN3NmtEMTFOQk52VFR1ZzEiLCJzdWIiOjQsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.NxmkZIgerk_4foYmLBj1KwhOZEfn2CKAAwIvldru7Fo",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\":\"faysal012@gmail.com\",\r\n    \"password\":\"123456\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/auth/login",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "View user profile",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Validate multiple fields in response\", function(){\r",
+							"responseJson = pm.response.json(); \r",
+							"pm.expect(responseJson.first_name).to.eql(\"Faysal\");\r",
+							"pm.expect(responseJson.id).to.eql(4);\r",
+							"pm.expect(responseJson.email).to.eql(\"faysal012@gmail.com\");\r",
+							" });\r",
+							"\r",
+							"pm.test(\"Content-type of Headres\", function()\r",
+							"{\r",
+							"    pm.response.to.be.header(\"Content-Type\",\"application/json\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"response time less than 500ms\", function(){\r",
+							"pm.expect(pm.response.responseTime).to.be.below(600);\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6ODAwMFwvYXBpXC9hdXRoXC9sb2dpbiIsImlhdCI6MTY2NzEyMTY2MiwiZXhwIjoxNjY3MTI1MjYyLCJuYmYiOjE2NjcxMjE2NjIsImp0aSI6InN3NmtEMTFOQk52VFR1ZzEiLCJzdWIiOjQsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.NxmkZIgerk_4foYmLBj1KwhOZEfn2CKAAwIvldru7Fo",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/auth/profile",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"auth",
+						"profile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Store user location",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Validate multiple fields in response\", function(){\r",
+							"responseJson = pm.response.json(); \r",
+							"pm.expect(responseJson.location.zone).to.eql(\"Mirpur\");\r",
+							" });\r",
+							"pm.test(\"Content-type of Headres\", function()\r",
+							"{\r",
+							"    pm.response.to.be.header(\"Content-Type\",\"application/json\");\r",
+							"});\r",
+							" tests[\"Validation status code\"] = responseCode.code ==201;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6ODAwMFwvYXBpXC9hdXRoXC9sb2dpbiIsImlhdCI6MTY2NzEyMTY2MiwiZXhwIjoxNjY3MTI1MjYyLCJuYmYiOjE2NjcxMjE2NjIsImp0aSI6InN3NmtEMTFOQk52VFR1ZzEiLCJzdWIiOjQsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.NxmkZIgerk_4foYmLBj1KwhOZEfn2CKAAwIvldru7Fo",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"code\": \"SU-00000004\",\r\n    \"country\":\"BD\",\r\n    \"address_1\":\"Mirpur-10\",\r\n    \"address_2\":\"Khilkhet\",\r\n    \"city\":\"Dhaka\",\r\n    \"state\":\"Dhaka\",\r\n    \"zone\":\"Mirpur\",\r\n    \"zip_code\": \"1200\",\r\n    \"lat\":23.830646510005335,\r\n    \"lng\":90.42397062039597,\r\n    \"type\":\"offer\"\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/auth/location",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"auth",
+						"location"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Show stored location ",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Host of Headres\", function()\r",
+							"{\r",
+							"    pm.response.to.be.header(\"Host\",\"127.0.0.1:8000\");\r",
+							"});\r",
+							" tests[\"Validation status code\"] = responseCode.code ==200;\r",
+							"var response=JSON.parse(responseBody);\r",
+							"tests[\"zip_code validation\"] = response.Location.zip_code==\"1200\";"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6ODAwMFwvYXBpXC9hdXRoXC9sb2dpbiIsImlhdCI6MTY2NzEyMTY2MiwiZXhwIjoxNjY3MTI1MjYyLCJuYmYiOjE2NjcxMjE2NjIsImp0aSI6InN3NmtEMTFOQk52VFR1ZzEiLCJzdWIiOjQsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.NxmkZIgerk_4foYmLBj1KwhOZEfn2CKAAwIvldru7Fo",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/auth/location/?code=SU-00000004",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"auth",
+						"location",
+						""
+					],
+					"query": [
+						{
+							"key": "code",
+							"value": "SU-00000004"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Store_product_info",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Host of Headres\", function()\r",
+							"{\r",
+							"    pm.response.to.be.header(\"Host\",\"127.0.0.1:8000\");\r",
+							"});\r",
+							" tests[\"Validation status code\"] = responseCode.code ==201;\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\":\"product5\",\r\n    \"item_id\": 1,\r\n    \"category_id\":2,\r\n    \"sub_category_id\":1,\r\n    \"negotiable\":0,\r\n    \"price\":55.5,\r\n    \"condition\":\"New\",\r\n    \"description\":\"test description\",\r\n    \"quantity\":\"20\",\r\n    \"file_id\":\"9\",\r\n    \"category1\":2,\r\n    \"category2\":\"\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/auth/product_store",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"auth",
+						"product_store"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Upload file",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Verify file response\",function(){\r",
+							"responseJson=pm.response.json();\r",
+							"pm.expect(responseJson.File_Info.extension).to.eql('png');\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "images",
+							"type": "file",
+							"src": "/C:/Users/Hp/Downloads/4490362.png"
+						},
+						{
+							"key": "description",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "files_id",
+							"value": "3",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/auth/files",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"auth",
+						"files"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Store a core file",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"Validation status code\"] = responseCode.code ==201;\r",
+							"var response=JSON.parse(responseBody);\r",
+							"tests[\"Item-type validation\"] = response.Message==\"Main file 3 has been successfully uploaded into Files\";\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"item_id\":\"3\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/auth/main_files",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"auth",
+						"main_files"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Upload item type",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Host of Headres\", function()\r",
+							"{\r",
+							"    pm.response.to.be.header(\"Host\",\"127.0.0.1:8000\");\r",
+							"});\r",
+							" tests[\"Validation status code\"] = responseCode.code ==201;\r",
+							"var response=JSON.parse(responseBody);\r",
+							"tests[\"Item-type validation\"] = response.Category_Info.item_type==\"product3\";\r",
+							"tests[\"is_active validation\"] = response.Category_Info.is_active==1;\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6ODAwMFwvYXBpXC9hdXRoXC9sb2dpbiIsImlhdCI6MTY2NzEyNjY1MCwiZXhwIjoxNjY3MTMwMjUwLCJuYmYiOjE2NjcxMjY2NTAsImp0aSI6IjA0bURYajhSd1BaN0l6ckkiLCJzdWIiOjQsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.ajJci1TG21OseQ98Vxc0JDaCNwELyA9rTRBtc2_77LA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"item_type\":\"product3\",\r\n    \"status\":\"pending\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/auth/item",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"auth",
+						"item"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search sub-cateory",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"Status code validation\"] = responseCode.code ==200;\r",
+							"pm.test(\"response time less than 600ms\", function(){\r",
+							"pm.expect(pm.response.responseTime).to.be.below(600);\r",
+							"})\r",
+							"var response=JSON.parse(responseBody);\r",
+							"tests[\"zip_code validation\"] = response.sub_category.name==\"Hp Desktop\";\r",
+							"\r",
+							"\r",
+							"pm.test(\"Content-type of Headres\", function()\r",
+							"{\r",
+							"    pm.response.to.be.header(\"Content-Type\",\"application/json\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/auth/show_subcategory/?name=Hp Desktop",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"auth",
+						"show_subcategory",
+						""
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Hp Desktop"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add category",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"Status code validation\"] = responseCode.code ==201;\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"Mouse\",\r\n    \"type\":\"product\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/auth/category",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"auth",
+						"category"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add sub-category",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"Status code validation\"] = responseCode.code ==201;\r",
+							"pm.test(\"response time less than 600ms\", function(){\r",
+							"pm.expect(pm.response.responseTime).to.be.below(600);\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"Hp Desktop\",\r\n    \"category_id\":4\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/auth/category/sub_category",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"auth",
+						"category",
+						"sub_category"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "search a specific product through title",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"Status code validation\"] = responseCode.code ==200;\r",
+							"pm.test(\"response time less than 600ms\", function(){\r",
+							"pm.expect(pm.response.responseTime).to.be.below(600);\r",
+							"})\r",
+							"var response=JSON.parse(responseBody);\r",
+							"tests[\"Title validation\"] = response.product_information[0].title==\"product4\";\r",
+							"\r",
+							"\r",
+							"pm.test(\"Content-type of Headres\", function()\r",
+							"{\r",
+							"    pm.response.to.be.header(\"Content-Type\",\"application/json\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/auth/show_specific_product?title=product4",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"auth",
+						"show_specific_product"
+					],
+					"query": [
+						{
+							"key": "title",
+							"value": "product4"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Final result",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"Status code validation\"] = responseCode.code ==200;\r",
+							"pm.test(\"response time less than 600ms\", function(){\r",
+							"pm.expect(pm.response.responseTime).to.be.below(600);\r",
+							"})\r",
+							"var response=JSON.parse(responseBody);\r",
+							"tests[\"Title validation\"] = response.results[0].code==\"SU-00000001\";\r",
+							"tests[\"Title validation\"] = response.product[0].category_id==1;\r",
+							"\r",
+							"\r",
+							"pm.test(\"Verify Date of Headres\", function()\r",
+							"{\r",
+							"    pm.response.to.be.header(\"Cache-Control\",\"no-cache, private\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/auth/search_item?items_id=1&files_id=1&productID=1",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"auth",
+						"search_item"
+					],
+					"query": [
+						{
+							"key": "items_id",
+							"value": "1"
+						},
+						{
+							"key": "files_id",
+							"value": "1"
+						},
+						{
+							"key": "productID",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update product",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							" tests[\"Validation status code\"] = responseCode.code ==200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"type\":\"product2\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/auth/update_category/11",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"auth",
+						"update_category",
+						"11"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete_product",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							" tests[\"Validation status code\"] = responseCode.code ==200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/auth/delete_product/12",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"auth",
+						"delete_product",
+						"12"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
