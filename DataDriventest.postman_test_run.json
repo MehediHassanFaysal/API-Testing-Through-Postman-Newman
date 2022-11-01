@@ -1,0 +1,73 @@
+{
+	"id": "c4a4dc68-ed7a-41b6-b52d-0d0f3cbb3640",
+	"name": "DataDriventest",
+	"timestamp": "2022-11-01T20:38:35.303Z",
+	"collection_id": "22934276-aae6508e-7c84-4279-82c9-36552570f533",
+	"folder_id": 0,
+	"environment_id": "0",
+	"totalPass": 8,
+	"totalFail": 0,
+	"results": [
+		{
+			"id": "004a5aa3-bc0f-4b29-bf08-a1c79248fb88",
+			"name": "Create employee",
+			"time": 964,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Content-type of Headres": true,
+				"check status cade": true,
+				" check status in the rsponse ": true,
+				"Check status in the exact position": true
+			},
+			"testPassFailCounts": {
+				"Content-type of Headres": {
+					"pass": 2,
+					"fail": 0
+				},
+				"check status cade": {
+					"pass": 2,
+					"fail": 0
+				},
+				" check status in the rsponse ": {
+					"pass": 2,
+					"fail": 0
+				},
+				"Check status in the exact position": {
+					"pass": 2,
+					"fail": 0
+				}
+			},
+			"times": [
+				1158,
+				964
+			],
+			"allTests": [
+				{
+					"Content-type of Headres": true,
+					"check status cade": true,
+					" check status in the rsponse ": true,
+					"Check status in the exact position": true
+				},
+				{
+					"Content-type of Headres": true,
+					"check status cade": true,
+					" check status in the rsponse ": true,
+					"Check status in the exact position": true
+				}
+			]
+		}
+	],
+	"count": 2,
+	"totalTime": 2122,
+	"collection": {
+		"requests": [
+			{
+				"id": "004a5aa3-bc0f-4b29-bf08-a1c79248fb88",
+				"method": "POST"
+			}
+		]
+	}
+}
