@@ -5,4 +5,4 @@
 ### 2. GlobeTechTask-API Testing Reports
    - Environment: QA
    - [Click here](https://documenter.getpostman.com/view/22934276/2s8YRdranw) to see full documents of collection.
-   - [Review the Test Cases](https://docs.google.com/spreadsheets/d/1tTcdyuv2DXjj55VWCYcoaAo1ris8PirZ/edit?usp=share_link&ouid=110212694347163662297&rtpof=true&sd=true)
+   - [Review the Test Cases](https://docs.google.com/spreadsheets/d/1pKZs54dBsNd_F7t04xC_3JUco5misdiI/edit?usp=sharing&ouid=110212694347163662297&rtpof=true&sd=true)
